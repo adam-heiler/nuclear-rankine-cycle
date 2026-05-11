@@ -1,0 +1,903 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Base
+  title="Thermodynamics Concepts | Nuclear Rankine Cycle"
+  activeNav="concepts"
+  description="Key thermodynamics concepts for the Rankine cycle: enthalpy, entropy, steam quality, exergy, and second law efficiency."
+>
+
+  <!-- ── Page Hero ── -->
+  <div class="page-hero" style="background:#0891B2;">
+    <div class="inner">
+      <p class="hero-eyebrow">Foundation</p>
+      <h1>Thermodynamics Concepts</h1>
+      <p class="hero-sub">
+        The thermodynamic vocabulary you'll need throughout this guide. Skim the familiar sections.
+        Read the exergy and second-law sections carefully. Most intro courses skip them entirely.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Enthalpy ── -->
+  <div class="sec-banner" style="background:#1865F2;">
+    <h2 class="inner">Enthalpy</h2>
+  </div>
+  <div class="content-row">
+    <div class="inner concept-layout">
+      <div class="concept-body">
+        <p>
+          Enthalpy represents the total heat content of a substance by combining internal energy
+          and the energy required to make room for it at a given pressure and volume (Pv). This
+          simplifies engineering calculations for open systems by accounting for flow work.
+          Otherwise, you would need to account for pressure and specific energy in every
+          calculation separately.
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Specific Enthalpy</span>
+          <span class="eq-expr">h = u + Pv</span>
+          <span class="eq-units">[kJ/kg]</span>
+        </div>
+        <p>
+          Every device in the Rankine cycle operates at steady state with continuous flow in and
+          out. Thermodynamicists call these <strong>steady-state, steady-flow (SSSF)</strong>
+          devices. For these devices, neglecting kinetic and potential energy changes, the first
+          law reduces to:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">SSSF Energy Balance</span>
+          <span class="eq-expr">q &minus; w = h<sub>out</sub> &minus; h<sub>in</sub></span>
+          <span class="eq-units">[kJ/kg]</span>
+        </div>
+        <p>
+          This is why steam tables list enthalpy directly. h<sub>in</sub> and h<sub>out</sub>
+          are the only thermodynamic quantities needed to compute heat transfer and work across
+          every Rankine cycle component.
+        </p>
+      </div>
+      <aside class="concept-links">
+        <p class="links-label">Learn More</p>
+        <a class="concept-link" href="https://www.britannica.com/science/enthalpy" target="_blank" rel="noopener noreferrer">Britannica: Enthalpy &rarr;</a>
+        <a class="concept-link" href="https://webbook.nist.gov/chemistry/fluid/" target="_blank" rel="noopener noreferrer">NIST Webbook: Steam Properties &rarr;</a>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ── Entropy ── -->
+  <div class="sec-banner" style="background:#0891B2;">
+    <h2 class="inner">Entropy</h2>
+  </div>
+  <div class="content-row content-row--bg">
+    <div class="inner concept-layout">
+      <div class="concept-body">
+        <p>
+          Entropy is a measure of the unavailability of energy to do useful work. More precisely,
+          it captures how much energy in a system is spread out or dispersed in a way that cannot
+          be recovered as work. For a reversible heat transfer &delta;q at absolute temperature T,
+          the change in specific entropy is:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Clausius Definition</span>
+          <span class="eq-expr">ds = &delta;q<sub>rev</sub> / T</span>
+          <span class="eq-units">[kJ/kg&middot;K]</span>
+        </div>
+        <p>
+          An entropy balance on any system or control volume takes the form:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Entropy Balance (Rate Form)</span>
+          <span class="eq-expr">dS/dt = &Sigma;(Q&#775;<sub>k</sub> / T<sub>k</sub>) &minus; m&#775;<sub>out</sub>s<sub>out</sub> + m&#775;<sub>in</sub>s<sub>in</sub> + S&#775;<sub>gen</sub></span>
+        </div>
+        <p>
+          The term S&#775;<sub>gen</sub> &ge; 0 by the second law. It equals zero only for
+          reversible processes and is strictly positive whenever irreversibilities are present.
+          This includes friction, heat transfer across a finite temperature difference, and mixing.
+        </p>
+        <p>
+          For a reversible, adiabatic <strong>(isentropic)</strong> process, &Delta;s = 0.
+          The ideal turbine and pump in the Rankine cycle are both treated as isentropic.
+          A real turbine has s<sub>out</sub> &gt; s<sub>in</sub>, indicating lost work potential.
+        </p>
+      </div>
+      <aside class="concept-links">
+        <p class="links-label">Learn More</p>
+        <a class="concept-link" href="https://www.britannica.com/science/entropy-physics" target="_blank" rel="noopener noreferrer">Britannica: Entropy &rarr;</a>
+        <a class="concept-link" href="https://www.sciencedirect.com/topics/engineering/entropy" target="_blank" rel="noopener noreferrer">ScienceDirect: Entropy &rarr;</a>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ── First Law / Energy Equation ── -->
+  <div class="sec-banner" style="background:#16A34A;">
+    <h2 class="inner">First Law — The Energy Equation</h2>
+  </div>
+  <div class="content-row">
+    <div class="inner concept-layout">
+      <div class="concept-body">
+        <p>
+          For a steady-state, steady-flow system with one inlet and one outlet, neglecting kinetic
+          and potential energy changes, the rate form of the first law is:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">SSSF First Law</span>
+          <span class="eq-expr">Q&#775; &minus; W&#775; = m&#775; (h<sub>out</sub> &minus; h<sub>in</sub>)</span>
+        </div>
+        <p>
+          Dividing by mass flow rate gives the per-unit-mass form:
+          q &minus; w = h<sub>out</sub> &minus; h<sub>in</sub>. Applied to each component of the
+          Rankine cycle (covered in detail in the
+          <a href={`${base}basic-rankine-cycle`}>Basic Rankine Cycle</a> section):
+        </p>
+        <div class="component-table">
+          <div class="ct-header">
+            <span>Component</span>
+            <span>Process</span>
+            <span>Balance (per kg)</span>
+          </div>
+          <div class="ct-row" style="border-left-color:#1865F2;">
+            <span><strong>Pump</strong> (1&rarr;2)</span>
+            <span>Adiabatic, isentropic compression</span>
+            <span>w<sub>p</sub> = h<sub>2</sub> &minus; h<sub>1</sub> &nbsp;<em>(work in)</em></span>
+          </div>
+          <div class="ct-row" style="border-left-color:#EA580C;">
+            <span><strong>Boiler</strong> (2&rarr;3)</span>
+            <span>Isobaric heat addition</span>
+            <span>q<sub>in</sub> = h<sub>3</sub> &minus; h<sub>2</sub> &nbsp;<em>(heat in)</em></span>
+          </div>
+          <div class="ct-row" style="border-left-color:#16A34A;">
+            <span><strong>Turbine</strong> (3&rarr;4)</span>
+            <span>Adiabatic, isentropic expansion</span>
+            <span>w<sub>t</sub> = h<sub>3</sub> &minus; h<sub>4</sub> &nbsp;<em>(work out)</em></span>
+          </div>
+          <div class="ct-row" style="border-left-color:#0891B2;">
+            <span><strong>Condenser</strong> (4&rarr;1)</span>
+            <span>Isobaric heat rejection</span>
+            <span>q<sub>out</sub> = h<sub>4</sub> &minus; h<sub>1</sub> &nbsp;<em>(heat out)</em></span>
+          </div>
+        </div>
+
+        <h3>Applying the SSSF equation to a turbine</h3>
+        <p>
+          A turbine is well-modeled as adiabatic (Q&#775; &approx; 0, since heat losses through the
+          casing are negligible compared to the shaft work). Applying the SSSF first law with
+          Q&#775; = 0:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Adiabatic Turbine</span>
+          <span class="eq-expr">w<sub>t</sub> = h<sub>in</sub> &minus; h<sub>out</sub></span>
+          <span class="eq-units">[kJ/kg]</span>
+        </div>
+        <div class="concept-example">
+          <p class="example-label">Example — Turbine work</p>
+          <p>
+            Steam enters a turbine at h<sub>3</sub> = 2,800 kJ/kg and exits at
+            h<sub>4</sub> = 2,100 kJ/kg. The turbine is adiabatic. Shaft work produced per kg:
+            <strong>w<sub>t</sub> = 2,800 &minus; 2,100 = 700 kJ/kg</strong>.
+          </p>
+        </div>
+        <div class="diagram-placeholder">
+          <p class="diagram-placeholder-label">Turbine diagram</p>
+          <p class="diagram-placeholder-sub">Diagram coming soon</p>
+        </div>
+
+        <h3>Thermal efficiency</h3>
+        <p>
+          Thermal efficiency answers a simple question: what fraction of the heat you put in do you
+          get back out as useful work? It follows directly from the component balances:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Thermal Efficiency</span>
+          <span class="eq-expr">&eta;<sub>th</sub> = w<sub>net</sub> / q<sub>in</sub> = (w<sub>t</sub> &minus; w<sub>p</sub>) / q<sub>in</sub> = 1 &minus; q<sub>out</sub> / q<sub>in</sub></span>
+        </div>
+      </div>
+      <aside class="concept-links">
+        <p class="links-label">Learn More</p>
+        <a class="concept-link" href="https://www.britannica.com/science/thermodynamics" target="_blank" rel="noopener noreferrer">Britannica: Thermodynamics &rarr;</a>
+        <a class="concept-link" href="https://www.sciencedirect.com/topics/engineering/first-law-of-thermodynamics" target="_blank" rel="noopener noreferrer">ScienceDirect: First Law &rarr;</a>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ── T-s Diagram ── -->
+  <div class="sec-banner" style="background:#0F2147;">
+    <h2 class="inner">The T-s Diagram</h2>
+  </div>
+  <div class="content-row content-row--bg">
+    <div class="inner concept-layout">
+      <div class="concept-body">
+        <p>
+          The T-s diagram is the most powerful visualization in power plant analysis. It plots
+          temperature T against specific entropy s for every state point in the cycle. The area
+          enclosed by the cycle on a T-s diagram equals the net specific work output
+          (w<sub>net</sub> = w<sub>turbine</sub> &minus; w<sub>pump</sub>). The area under the
+          upper process curve equals heat added. The area under the lower curve equals heat
+          rejected. Efficiency is literally visible as a ratio of areas.
+        </p>
+        <p>
+          The curved boundary shown below is the <strong>saturation dome</strong>. Inside it, liquid
+          and vapor coexist. To the left of the dome's peak is compressed liquid. To the right is
+          superheated vapor. The peak of the dome is the critical point (374.14&deg;C for water).
+        </p>
+        <div class="chart-container">
+          <canvas id="tsChart"></canvas>
+        </div>
+        <p>
+          The basic Rankine cycle traces a closed path. Process 1&rarr;2 is the pump
+          (isentropic, nearly vertical at low s). Process 2&rarr;3 is boiler heating followed by
+          vaporization at constant pressure. Process 3&rarr;4 is the turbine (isentropic, vertical
+          at high s). Process 4&rarr;1 is the condenser (heat rejection at constant temperature).
+          The chart above shows a representative BWR cycle with a condenser at 40&deg;C and
+          boiler saturation temperature at 285&deg;C.
+        </p>
+      </div>
+      <aside class="concept-links">
+        <p class="links-label">Learn More</p>
+        <a class="concept-link" href="https://webbook.nist.gov/chemistry/fluid/" target="_blank" rel="noopener noreferrer">NIST Webbook: Steam Data &rarr;</a>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ── Steam Quality ── -->
+  <div class="sec-banner" style="background:#EA580C;">
+    <h2 class="inner">Steam Quality</h2>
+  </div>
+  <div class="content-row">
+    <div class="inner concept-layout">
+      <div class="concept-body">
+        <p>
+          When liquid water and steam coexist inside the two-phase (wet steam) region on a T-s
+          diagram, quality x describes what fraction of the total mass is vapor:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Steam Quality</span>
+          <span class="eq-expr">x = m<sub>g</sub> / (m<sub>f</sub> + m<sub>g</sub>)</span>
+          <span class="eq-units">[0 &le; x &le; 1]</span>
+        </div>
+        <p>
+          x = 0 is saturated liquid. x = 1 is saturated vapor (dry steam). Any thermodynamic
+          property in the two-phase region interpolates linearly with quality:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Wet Steam Properties</span>
+          <span class="eq-expr">h = h<sub>f</sub> + x &middot; h<sub>fg</sub> &emsp; s = s<sub>f</sub> + x &middot; s<sub>fg</sub></span>
+        </div>
+        <p>
+          where h<sub>fg</sub> = h<sub>g</sub> &minus; h<sub>f</sub> is the enthalpy of
+          vaporization (2,260 kJ/kg for water at 100&deg;C and atmospheric
+          pressure<sup><a href="#ref-1" class="cite">[1]</a></sup>).
+        </p>
+        <div class="callout callout--warn">
+          <div class="callout-icon">!</div>
+          <div class="callout-body">
+            <strong>Turbine blade erosion</strong>
+            <p>
+              Steam quality below roughly 0.85 causes serious, accumulating damage. Liquid
+              droplets at turbine blade tip velocities act like sandblasting: they erode blade
+              leading edges over time, reducing turbine efficiency and eventually requiring costly
+              replacement. This is the primary engineering reason a simple Rankine cycle cannot
+              be used directly in nuclear plants and the main motivation for the reheat cycle.
+              More detail is in the <a href={`${base}reactor-turbine-materials`}>Reactor &amp;
+              Turbine Materials</a> section.
+            </p>
+          </div>
+        </div>
+      </div>
+      <aside class="concept-links">
+        <p class="links-label">Learn More</p>
+        <a class="concept-link" href="https://www.sciencedirect.com/topics/engineering/steam-quality" target="_blank" rel="noopener noreferrer">ScienceDirect: Steam Quality &rarr;</a>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ── Exergy ── -->
+  <div class="sec-banner" style="background:#7C3AED;">
+    <h2 class="inner">Exergy</h2>
+  </div>
+  <div class="content-row content-row--bg">
+    <div class="inner concept-layout">
+      <div class="concept-body">
+        <p>
+          Energy is conserved. But not all energy is equal. Steam at 300&deg;C can produce far
+          more useful work than the same joule count of thermal energy at 60&deg;C.
+          <strong>Exergy</strong> captures this difference. It measures a thermodynamic state's
+          actual ability to produce work relative to the local environment.
+        </p>
+        <p>
+          Formally, flow exergy is the maximum useful work extractable as a fluid stream
+          equilibrates with its dead state at temperature T<sub>0</sub> and pressure P<sub>0</sub>:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Specific Flow Exergy</span>
+          <span class="eq-expr">&psi; = (h &minus; h<sub>0</sub>) &minus; T<sub>0</sub>(s &minus; s<sub>0</sub>)</span>
+          <span class="eq-units">[kJ/kg]</span>
+        </div>
+        <p>
+          where h<sub>0</sub> and s<sub>0</sub> are properties of water at ambient conditions.
+          For a nuclear plant, T<sub>0</sub> is the outdoor air temperature.
+        </p>
+        <h3>Exergy vs. energy</h3>
+        <ul class="concept-list">
+          <li>
+            <strong>Exergy is destroyed, not just transferred.</strong> Every irreversible
+            process permanently destroys exergy. Energy is conserved. Exergy is consumed.
+          </li>
+          <li>
+            <strong>Exergy destruction = T<sub>0</sub> &middot; S&#775;<sub>gen</sub>.</strong>
+            Entropy generation and exergy destruction are two ways of measuring the same
+            inefficiency.
+          </li>
+        </ul>
+
+        <h3>Heat exchanger exergy</h3>
+        <p>
+          For a heat exchanger transferring heat from a hot fluid to a cold fluid, the second
+          law efficiency compares how much exergy the cold side gains to how much the hot side
+          loses:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Heat Exchanger Second Law Efficiency</span>
+          <span class="eq-expr">&eta;<sub>II,HX</sub> = &Delta;&psi;<sub>cold</sub> / &Delta;&psi;<sub>hot</sub></span>
+        </div>
+        <p>
+          Even for an adiabatic, ideal heat exchanger (where every joule leaving the hot side
+          enters the cold side), &eta;<sub>II,HX</sub> &lt; 1. All energy is transferred, but the
+          ability to do useful work is reduced because the transfer occurs across a temperature
+          difference. The irreversibility is fundamentally thermodynamic, not mechanical.
+        </p>
+
+        <h3>Second law efficiency for a thermal power plant</h3>
+        <p>
+          For a thermal power plant, second law efficiency compares net work output to the exergy
+          supplied by the heat source:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Second Law Efficiency (Plant)</span>
+          <span class="eq-expr">&eta;<sub>II</sub> = W&#775;<sub>net</sub> / &Psi;&#775;<sub>in</sub></span>
+        </div>
+        <p>
+          This is a more honest measure of plant performance than first law efficiency alone,
+          because it accounts for the quality of the heat being used, not just its quantity.
+        </p>
+      </div>
+      <aside class="concept-links">
+        <p class="links-label">Learn More</p>
+        <a class="concept-link" href="https://www.sciencedirect.com/topics/earth-and-planetary-sciences/exergy" target="_blank" rel="noopener noreferrer">ScienceDirect: Exergy &rarr;</a>
+        <a class="concept-link" href="https://www.britannica.com/science/thermodynamics/Thermodynamic-potentials" target="_blank" rel="noopener noreferrer">Britannica: Thermodynamic Potentials &rarr;</a>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ── Second Law Efficiency ── -->
+  <div class="sec-banner" style="background:#DC2626;">
+    <h2 class="inner">Second Law Efficiency</h2>
+  </div>
+  <div class="content-row">
+    <div class="inner concept-layout">
+      <div class="concept-body">
+        <p>
+          Thermal efficiency (first law efficiency) tells you how much of Q<sub>in</sub> becomes
+          useful work:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Thermal Efficiency</span>
+          <span class="eq-expr">&eta;<sub>I</sub> = W<sub>net</sub> / Q<sub>in</sub></span>
+        </div>
+        <p>
+          This is intuitive but incomplete. A 33% thermal efficiency might be excellent or poor
+          depending on the temperature limits. The upper bound for any heat engine operating
+          between a source at T<sub>H</sub> and a sink at T<sub>L</sub> is the
+          <strong>Carnot efficiency</strong>:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Carnot Efficiency</span>
+          <span class="eq-expr">&eta;<sub>Carnot</sub> = 1 &minus; T<sub>L</sub> / T<sub>H</sub></span>
+          <span class="eq-units">[T in Kelvin]</span>
+        </div>
+        <p>
+          No real heat engine can exceed this. <strong>Second law efficiency</strong> normalizes
+          the actual thermal efficiency against what thermodynamics says is achievable at those
+          temperature limits:
+        </p>
+        <div class="eq-block">
+          <span class="eq-label">Second Law Efficiency</span>
+          <span class="eq-expr">&eta;<sub>II</sub> = &eta;<sub>I</sub> / &eta;<sub>Carnot</sub></span>
+        </div>
+        <p>
+          A perfectly reversible Carnot cycle has &eta;<sub>II</sub> = 100%. Real plants fall below
+          this due to irreversibilities in every component. The gap between &eta;<sub>I</sub> and
+          &eta;<sub>Carnot</sub> is where all meaningful thermodynamic improvement lives.
+        </p>
+        <div class="callout callout--info">
+          <div class="callout-icon">i</div>
+          <div class="callout-body">
+            <strong>Why second law efficiency matters for nuclear plants</strong>
+            <p>
+              A nuclear plant at 33% thermal efficiency is actually operating at roughly
+              50&ndash;60% second law efficiency because its relatively low steam temperatures
+              constrain &eta;<sub>Carnot</sub>. First law efficiency makes it look inefficient
+              compared to a gas turbine at 40%. Second law efficiency shows it is performing well
+              within its physical constraints.
+            </p>
+          </div>
+        </div>
+      </div>
+      <aside class="concept-links">
+        <p class="links-label">Learn More</p>
+        <a class="concept-link" href="https://www.britannica.com/science/Carnot-cycle" target="_blank" rel="noopener noreferrer">Britannica: The Carnot Cycle &rarr;</a>
+        <a class="concept-link" href="https://www.sciencedirect.com/topics/engineering/second-law-efficiency" target="_blank" rel="noopener noreferrer">ScienceDirect: Second Law Efficiency &rarr;</a>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ── References ── -->
+  <div class="sec-banner" style="background:#4B5563;">
+    <h2 class="inner">References</h2>
+  </div>
+  <div class="content-row content-row--bg">
+    <div class="inner">
+      <ol class="refs-list" id="references">
+        <li id="ref-1">Lemmon, E. W., Bell, I. H., Huber, M. L., &amp; McLinden, M. O. (2023). <em>NIST Chemistry WebBook, SRD 69: Thermophysical Properties of Fluid Systems.</em> <a href="https://webbook.nist.gov/chemistry/fluid/" target="_blank" rel="noopener noreferrer">webbook.nist.gov</a></li>
+        <li id="ref-2">Borgnakke, C., &amp; Sonntag, R. E. <em>Fundamentals of Thermodynamics</em> (10th ed.). Wiley.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ── Continue ── -->
+  <div class="sec-banner" style="background:#0F2147;">
+    <h2 class="inner">Continue</h2>
+  </div>
+  <div class="content-row">
+    <div class="inner next-step">
+      <p>
+        With these concepts in hand, you are ready to explore why the Rankine cycle is the
+        standard solution for converting heat into electricity, and which industries depend on it.
+        Or if you want to get right into the cycle itself, jump to the Basic Rankine Cycle section.
+      </p>
+      <div class="next-links">
+        <a href={`${base}why-rankine`} class="btn-primary">Why the Rankine Cycle? &rarr;</a>
+        <a href={`${base}basic-rankine-cycle`} class="btn-outline">Basic Rankine Cycle (coming soon)</a>
+      </div>
+    </div>
+  </div>
+
+</Base>
+
+<script>
+(function () {
+  // NIST saturation data: [T(°C), P(MPa), sf(kJ/kg·K), sg(kJ/kg·K), hf, hfg, hg]
+  const SAT = [
+    [0.01,0.000612,0.0000,9.1562,0.00,2501.3,2501.4],
+    [10,0.001228,0.1511,8.9008,42.0,2477.7,2519.7],
+    [20,0.002338,0.2966,8.6672,83.9,2454.1,2538.1],
+    [30,0.004246,0.4369,8.4520,125.8,2430.5,2556.3],
+    [40,0.007384,0.5725,8.2570,167.5,2406.8,2574.3],
+    [50,0.012349,0.7038,8.0763,209.3,2382.7,2592.1],
+    [60,0.019940,0.8313,7.9096,251.1,2358.5,2609.6],
+    [70,0.031190,0.9549,7.7553,292.9,2333.8,2626.8],
+    [80,0.047390,1.0753,7.6122,334.9,2308.8,2643.7],
+    [90,0.070140,1.1925,7.4791,376.9,2283.2,2660.1],
+    [100,0.101420,1.3069,7.3554,419.0,2256.9,2675.9],
+    [110,0.143270,1.4185,7.2387,461.3,2230.2,2691.5],
+    [120,0.198540,1.5279,7.1296,503.7,2202.6,2706.3],
+    [130,0.270280,1.6350,7.0269,546.4,2174.4,2720.5],
+    [140,0.361400,1.7391,6.9299,589.1,2144.7,2733.9],
+    [150,0.476200,1.8418,6.8380,632.2,2114.3,2746.5],
+    [160,0.618200,1.9427,6.7502,675.6,2082.6,2758.1],
+    [170,0.792200,2.0421,6.6663,719.2,2049.9,2769.1],
+    [180,1.002800,2.1387,6.5857,763.2,2015.3,2778.2],
+    [190,1.255000,2.2338,6.5079,807.6,1978.8,2786.4],
+    [200,1.553800,2.3308,6.4302,852.4,1940.7,2793.2],
+    [210,1.906200,2.4248,6.3584,897.7,1900.7,2798.5],
+    [220,2.318000,2.5175,6.2840,943.6,1858.5,2802.1],
+    [230,2.795000,2.6101,6.2121,990.3,1813.9,2804.2],
+    [240,3.346000,2.7020,6.1433,1037.5,1766.5,2803.8],
+    [250,3.976000,2.7935,6.0730,1085.4,1715.9,2801.4],
+    [260,4.692000,2.8838,6.0019,1134.4,1661.5,2795.6],
+    [270,5.503000,2.9751,5.9301,1184.5,1604.0,2788.4],
+    [280,6.417000,3.0681,5.8565,1235.0,1543.6,2778.6],
+    [290,7.444000,3.1616,5.7821,1286.8,1477.1,2764.6],
+    [300,8.581000,3.2552,5.7059,1341.3,1404.9,2749.0],
+    [310,9.856000,3.3520,5.6265,1397.4,1325.9,2725.3],
+    [320,11.274000,3.4480,5.5480,1461.1,1238.6,2699.7],
+    [330,12.845000,3.5480,5.4608,1525.3,1140.3,2665.6],
+    [340,14.601000,3.6577,5.3357,1594.2,1027.9,2622.0],
+    [350,16.529000,3.7784,5.2112,1670.6,893.0,2563.6],
+    [360,18.651000,3.9388,5.0536,1761.7,720.5,2481.0],
+    [370,21.030000,4.1108,4.8012,1890.5,452.6,2333.0],
+    [374.14,22.090000,4.4120,4.4120,2099.3,0,2099.3]
+  ];
+
+  const canvas = document.getElementById('tsChart') as HTMLCanvasElement | null;
+  if (!canvas) return;
+
+  function draw() {
+    const dpr = window.devicePixelRatio || 1;
+    const W = canvas.parentElement!.getBoundingClientRect().width || 600;
+    const H = Math.round(W * 0.58);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.scale(dpr, dpr);
+
+    const ML = 52, MR = 20, MT = 20, MB = 44;
+    const SMIN = 0, SMAX = 10, TMIN = 0, TMAX = 400;
+
+    function pt(s, T) {
+      return {
+        x: ML + (s - SMIN) / (SMAX - SMIN) * (W - ML - MR),
+        y: MT + (TMAX - T) / (TMAX - TMIN) * (H - MT - MB)
+      };
+    }
+
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(0,0,0,0.06)';
+    ctx.lineWidth = 0.5;
+    for (let s = 0; s <= 10; s++) {
+      const p = pt(s, 0);
+      ctx.beginPath(); ctx.moveTo(p.x, MT); ctx.lineTo(p.x, H - MB); ctx.stroke();
+    }
+    for (let T = 0; T <= 400; T += 50) {
+      const p = pt(0, T);
+      ctx.beginPath(); ctx.moveTo(ML, p.y); ctx.lineTo(W - MR, p.y); ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = '#ccc'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(ML, MT); ctx.lineTo(ML, H - MB); ctx.lineTo(W - MR, H - MB); ctx.stroke();
+
+    // Axis labels
+    const fs = Math.max(10, Math.round(W / 56));
+    ctx.fillStyle = '#6B7280';
+    ctx.font = fs + 'px system-ui';
+    ctx.textAlign = 'center';
+    for (let s = 0; s <= 10; s += 2) {
+      const p = pt(s, TMIN);
+      ctx.fillText(s, p.x, p.y + 17);
+    }
+    ctx.fillText('s  (kJ / kg·K)', ML + (W - ML - MR) / 2, H - 5);
+    ctx.textAlign = 'right';
+    for (let T = 0; T <= 400; T += 100) {
+      const p = pt(SMIN, T);
+      ctx.fillText(T, p.x - 6, p.y + 4);
+    }
+    ctx.save();
+    ctx.translate(13, MT + (H - MT - MB) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.fillText('T  (°C)', 0, 0);
+    ctx.restore();
+
+    // Saturation dome — sat liquid (left) and sat vapor (right)
+    ctx.strokeStyle = '#185FA5'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    SAT.forEach((r, i) => { const p = pt(r[2], r[0]); i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); });
+    ctx.stroke();
+    ctx.beginPath();
+    SAT.forEach((r, i) => { const p = pt(r[3], r[0]); i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); });
+    ctx.stroke();
+
+    // BWR cycle: condenser 40°C, boiler ~285°C (~7 MPa)
+    // State 1: sat liquid at condenser — on dome
+    // State 2: pump exit — drawn directly above state 1 at boiler height (simplified)
+    // State 3: sat vapor at boiler — on dome
+    // State 4: turbine exit — inside dome at condenser T
+    const s1 = 0.5725, T1 = 40;    // sf(40°C)
+    const s2 = 0.5725, T2 = 285;   // same s, directly above
+    const s3 = 5.819,  T3 = 285;   // sg(285°C) interpolated
+    const s4 = 5.819,  T4 = 40;
+
+    const p1 = pt(s1, T1), p2 = pt(s2, T2), p3 = pt(s3, T3), p4 = pt(s4, T4);
+
+    // Straight lines: pump (vertical), boiler (horizontal), turbine (vertical), condenser (horizontal)
+    const cyc = '#993C1D';
+    ctx.strokeStyle = cyc; ctx.lineWidth = 2.2; ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.lineTo(p3.x, p3.y);
+    ctx.lineTo(p4.x, p4.y);
+    ctx.lineTo(p1.x, p1.y);
+    ctx.stroke();
+
+    function dot(p) {
+      ctx.beginPath(); ctx.arc(p.x, p.y, 4.5, 0, 2 * Math.PI);
+      ctx.fillStyle = cyc; ctx.fill();
+    }
+    function lbl(txt, p, dx, dy) {
+      const tx = p.x + dx, ty = p.y + dy;
+      ctx.font = 'bold 12px system-ui'; ctx.textAlign = 'center';
+      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+      ctx.fillRect(tx - 9, ty - 13, 18, 17);
+      ctx.fillStyle = cyc; ctx.fillText(txt, tx, ty);
+    }
+
+    dot(p1); lbl('1', p1, -14, 9);
+    dot(p2); lbl('2', p2, -14, -6);
+    dot(p3); lbl('3', p3,  14, -6);
+    dot(p4); lbl('4', p4,  14,  9);
+
+    ctx.fillStyle = '#9CA3AF'; ctx.font = '11px system-ui';
+    ctx.textAlign = 'left';
+    ctx.fillText('Pump',    p1.x + 5, (p1.y + p2.y) / 2);
+    ctx.fillText('Turbine', p3.x + 5, (p3.y + p4.y) / 2);
+    ctx.textAlign = 'center';
+    ctx.fillText('Boiler',    (p2.x + p3.x) / 2, p2.y - 10);
+    ctx.fillText('Condenser', (p4.x + p1.x) / 2, p4.y + 17);
+  }
+
+  draw();
+  window.addEventListener('resize', () => requestAnimationFrame(draw));
+})();
+</script>
+
+<style>
+  /* ── Page hero ── */
+  .page-hero {
+    padding: 3.5rem 0;
+    color: #fff;
+  }
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 0.875rem;
+  }
+  .page-hero h1 {
+    font-size: 3.25rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    line-height: 1.05;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.88);
+    max-width: 620px;
+    line-height: 1.75;
+  }
+
+  /* ── Concept layout (body + sidebar) ── */
+  .concept-layout {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 3.5rem;
+    align-items: start;
+  }
+  .concept-body h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 1.375rem 0 0.75rem;
+  }
+  .concept-body p { color: var(--muted); margin-bottom: 1rem; }
+  .concept-body p:last-child { margin-bottom: 0; }
+
+  /* ── Equation blocks ── */
+  .eq-block {
+    background: var(--navy);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1.375rem 0;
+    flex-wrap: wrap;
+  }
+  .eq-label {
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    min-width: 150px;
+    flex-shrink: 0;
+  }
+  .eq-expr {
+    font-family: var(--mono);
+    font-size: 1.05rem;
+    color: #7EB8FF;
+    flex: 1;
+  }
+  .eq-units {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.28);
+    white-space: nowrap;
+    font-family: var(--mono);
+  }
+
+  /* ── Component table ── */
+  .component-table {
+    margin: 1.25rem 0;
+    border: 1px solid var(--border);
+  }
+  .ct-header {
+    display: grid;
+    grid-template-columns: 1.1fr 1.5fr 2fr;
+    gap: 1rem;
+    padding: 0.5rem 0.875rem;
+    background: var(--bg);
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--subtle);
+  }
+  .ct-row {
+    display: grid;
+    grid-template-columns: 1.1fr 1.5fr 2fr;
+    gap: 1rem;
+    padding: 0.75rem 0.875rem;
+    border-top: 1px solid var(--border);
+    border-left: 5px solid;
+    font-size: 0.875rem;
+    color: var(--muted);
+    align-items: center;
+  }
+  .ct-row strong { color: var(--text); }
+  .ct-row em     { font-style: italic; color: var(--subtle); }
+
+  /* ── Example box ── */
+  .concept-example {
+    background: var(--bg);
+    border-left: 5px solid var(--blue);
+    padding: 0.875rem 1.125rem;
+    margin: 1.375rem 0;
+  }
+  .example-label {
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.375rem;
+  }
+  .concept-example p { margin: 0 !important; color: var(--text) !important; font-size: 0.9rem; }
+
+  /* ── Turbine diagram placeholder ── */
+  .diagram-placeholder {
+    background: var(--bg);
+    border: 2px dashed var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+    gap: 0.4rem;
+    margin: 1.375rem 0;
+  }
+  .diagram-placeholder-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 !important;
+  }
+  .diagram-placeholder-sub {
+    font-size: 0.75rem;
+    color: var(--subtle);
+    margin: 0 !important;
+  }
+
+  /* ── T-s chart ── */
+  .chart-container {
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    margin: 1.375rem 0;
+  }
+
+  /* ── Concept list ── */
+  .concept-list {
+    padding-left: 1.25rem;
+    margin: 0.875rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .concept-list li { line-height: 1.65; }
+
+  /* ── Links sidebar ── */
+  .concept-links {
+    position: sticky;
+    top: calc(var(--header-h) + var(--nav-h) + 1.5rem);
+  }
+  .links-label {
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--subtle);
+    margin-bottom: 0.75rem;
+  }
+  .concept-link {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--blue);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+  }
+  .concept-link:hover { text-decoration: underline; }
+  .concept-link:last-child { border-bottom: none; }
+
+  /* ── Next step ── */
+  .next-step p {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    max-width: 680px;
+    line-height: 1.75;
+  }
+  .next-links { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+  /* ── References ── */
+  .refs-list {
+    list-style: none;
+    counter-reset: ref-num;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    margin-top: 1rem;
+  }
+  .refs-list li {
+    counter-increment: ref-num;
+    display: flex;
+    gap: 0.875rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .refs-list li::before {
+    content: '[' counter(ref-num) ']';
+    flex-shrink: 0;
+    min-width: 2.25rem;
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding-top: 3px;
+  }
+  .refs-list a { color: var(--blue); }
+  .refs-list em { font-style: italic; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .concept-layout {
+      grid-template-columns: 1fr;
+    }
+    .concept-links {
+      position: static;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .concept-link {
+      border-bottom: none;
+      border-right: 1px solid var(--border);
+      padding: 0.25rem 0.75rem;
+    }
+    .concept-link:last-child { border-right: none; }
+    .page-hero h1 { font-size: 2.5rem; }
+  }
+  @media (max-width: 600px) {
+    .ct-header { display: none; }
+    .ct-row { grid-template-columns: 1fr; gap: 0.2rem; padding: 0.75rem; }
+    .eq-block { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+    .eq-label { min-width: auto; }
+    .page-hero h1 { font-size: 2rem; }
+  }
+</style>

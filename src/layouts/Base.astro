@@ -1,0 +1,331 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  activeNav?: string;
+}
+
+const { title, description, activeNav = "" } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const navLinks = [
+  { label: "Introduction",                       slug: "introduction"            },
+  { label: "Concepts",                          slug: "concepts"                },
+  { label: "Why Rankine?",                      slug: "why-rankine"             },
+  { label: "Basic Rankine Cycle",               slug: "basic-rankine-cycle",     soon: true },
+  { label: "Nuclear Reheat",                    slug: "nuclear-reheat",          soon: true },
+  { label: "Reheat + Regenerative",             slug: "reheat-regenerative",     soon: true },
+  { label: "Reactor & Turbine Materials",       slug: "reactor-turbine-materials", soon: true },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" href={`${base}favicon.ico`} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href={base} class="site-title">Nuclear Rankine Cycle</a>
+      <span class="header-sep" aria-hidden="true"></span>
+      <p class="site-subtitle">Thermodynamics for engineers &amp; nuclear interns</p>
+    </header>
+
+    <nav class="tab-nav" aria-label="Site sections">
+      {navLinks.map((link) =>
+        link.soon ? (
+          <span class="tnav-item tnav-item--soon">{link.label}</span>
+        ) : (
+          <a
+            href={`${base}${link.slug}`}
+            class={`tnav-item${activeNav === link.slug ? " tnav-item--active" : ""}`}
+          >{link.label}</a>
+        )
+      )}
+    </nav>
+
+    <slot />
+
+    <footer class="site-footer">
+      <p>Developed by Adam Heiler in 2026. Developed for thermodynamics students and interns/new hires at nuclear power plants.</p>
+    </footer>
+
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --navy:    #0F2147;
+    --navy-2:  #192F5A;
+    --blue:    #1865F2;
+    --teal:    #0891B2;
+    --green:   #16A34A;
+    --orange:  #EA580C;
+    --amber:   #D97706;
+    --purple:  #7C3AED;
+    --red:     #DC2626;
+    --bg:      #ECEFF4;
+    --surface: #FFFFFF;
+    --border:  #D1D5DB;
+    --text:    #111827;
+    --muted:   #4B5563;
+    --subtle:  #9CA3AF;
+    --sans:    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --mono:    "SF Mono", "Fira Code", Menlo, "Courier New", monospace;
+    --header-h: 54px;
+    --nav-h:    42px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  /* ── Site Header ── */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    height: var(--header-h);
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    gap: 1rem;
+  }
+  .site-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .site-title:hover { color: #7EB8FF; text-decoration: none; }
+  .header-sep {
+    width: 1px;
+    height: 20px;
+    background: rgba(255,255,255,0.2);
+    flex-shrink: 0;
+  }
+  .site-subtitle {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.38);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ── Tab Navigation ── */
+  .tab-nav {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 100;
+    background: var(--navy-2);
+    display: flex;
+    align-items: stretch;
+    overflow-x: auto;
+    scrollbar-width: none;
+    height: var(--nav-h);
+    border-bottom: 3px solid #0a1e3d;
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+
+  .tnav-item {
+    display: flex;
+    align-items: center;
+    padding: 0 1.125rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.48);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    flex-shrink: 0;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tnav-item:hover:not(.tnav-item--soon):not(.tnav-item--active) {
+    color: rgba(255,255,255,0.85);
+    border-bottom-color: rgba(255,255,255,0.25);
+    text-decoration: none;
+  }
+  .tnav-item--active {
+    color: #fff;
+    border-bottom-color: var(--blue);
+  }
+  .tnav-item--soon {
+    color: rgba(255,255,255,0.2);
+    cursor: default;
+  }
+
+  /* ── Section Banners (flat, full-width) ── */
+  .sec-banner {
+    padding: 1rem 2.5rem;
+    color: #fff;
+  }
+  .sec-banner h2 {
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.88);
+    margin: 0;
+  }
+
+  /* ── Content rows ── */
+  .content-row {
+    padding: 3rem 2.5rem;
+    background: var(--surface);
+  }
+  .content-row--bg    { background: var(--bg); }
+  .content-row--dark  { background: var(--navy); color: #fff; }
+
+  /* Centering wrapper for very wide screens */
+  .inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    display: inline-block;
+    background: var(--blue);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .btn-primary:hover { background: #1456D4; text-decoration: none; color: #fff; }
+
+  .btn-secondary {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.14); text-decoration: none; }
+
+  .btn-outline {
+    display: inline-block;
+    background: transparent;
+    color: var(--navy);
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 2px solid var(--navy);
+  }
+  .btn-outline:hover { background: var(--navy); color: #fff; text-decoration: none; }
+
+  /* ── Site Footer ── */
+  .site-footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.3);
+    padding: 1.5rem 2.5rem;
+    font-size: 0.8rem;
+  }
+
+  /* ── Typography ── */
+  h1, h2, h3, h4 { line-height: 1.15; }
+  p { line-height: 1.75; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+
+  /* Citation superscripts */
+  .cite {
+    font-size: 0.7em;
+    font-weight: 700;
+    color: var(--blue);
+    text-decoration: none;
+    vertical-align: super;
+    line-height: 0;
+  }
+  .cite:hover { text-decoration: underline; }
+
+  /* ── Callout boxes ── */
+  .callout {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.375rem;
+    border-left: 5px solid;
+    margin: 1.5rem 0;
+  }
+  .callout--info     { background: #EFF6FF; border-color: var(--blue); }
+  .callout--question { background: #FFFBEB; border-color: var(--amber); }
+  .callout--warn     { background: #FFF7ED; border-color: var(--orange); }
+  .callout-icon {
+    flex-shrink: 0;
+    width: 1.375rem;
+    height: 1.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .callout-body { font-size: 0.9rem; flex: 1; }
+  .callout-body strong { display: block; margin-bottom: 0.3rem; font-size: 0.95rem; }
+  .callout-body p { margin-top: 0.5rem; margin-bottom: 0; }
+
+  /* ── References ── */
+  .refs-list {
+    list-style: none;
+    counter-reset: ref-num;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    margin-top: 1rem;
+  }
+  .refs-list li {
+    counter-increment: ref-num;
+    display: flex;
+    gap: 0.875rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .refs-list li::before {
+    content: '[' counter(ref-num) ']';
+    flex-shrink: 0;
+    min-width: 2.25rem;
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding-top: 3px;
+  }
+  .refs-list a { color: var(--blue); word-break: break-all; }
+  .refs-list em { font-style: italic; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .site-header  { padding: 0 1.25rem; }
+    .header-sep, .site-subtitle { display: none; }
+    .content-row  { padding: 2rem 1.25rem; }
+    .sec-banner   { padding: 0.875rem 1.25rem; }
+    .site-footer  { padding: 1.25rem 1.25rem; }
+  }
+</style>

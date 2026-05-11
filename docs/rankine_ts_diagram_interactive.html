@@ -1,0 +1,224 @@
+
+<h2 class="sr-only">Interactive Rankine cycle T-s diagram. Adjust boiler and condenser pressures to see how the cycle shape and efficiency change.</h2>
+<div style="padding: 0.75rem 0 1rem;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; margin-bottom: 1.25rem;">
+    <div>
+      <label for="p-high" style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 4px;">Boiler pressure</label>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <input type="range" id="p-high" min="1" max="15" step="0.5" value="6" style="flex:1;">
+        <span id="p-high-out" style="font-size: 13px; font-weight: 500; min-width: 58px; text-align: right;">6.0 MPa</span>
+      </div>
+    </div>
+    <div>
+      <label for="p-low" style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 4px;">Condenser pressure</label>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <input type="range" id="p-low" min="3" max="100" step="1" value="10" style="flex:1;">
+        <span id="p-low-out" style="font-size: 13px; font-weight: 500; min-width: 60px; text-align: right;">10 kPa</span>
+      </div>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 1.25rem;">
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.6rem 0.75rem;">
+      <div style="font-size: 11px; color: var(--color-text-secondary); margin-bottom: 2px;">η thermal</div>
+      <div id="eta" style="font-size: 20px; font-weight: 500;">—</div>
+    </div>
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.6rem 0.75rem;">
+      <div style="font-size: 11px; color: var(--color-text-secondary); margin-bottom: 2px;">Turbine exit x</div>
+      <div id="quality" style="font-size: 20px; font-weight: 500;">—</div>
+    </div>
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.6rem 0.75rem;">
+      <div style="font-size: 11px; color: var(--color-text-secondary); margin-bottom: 2px;">T₁ boiler</div>
+      <div id="t-boiler" style="font-size: 20px; font-weight: 500;">—</div>
+    </div>
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.6rem 0.75rem;">
+      <div style="font-size: 11px; color: var(--color-text-secondary); margin-bottom: 2px;">T₃ condenser</div>
+      <div id="t-cond" style="font-size: 20px; font-weight: 500;">—</div>
+    </div>
+  </div>
+  <div style="position: relative;">
+    <canvas id="ts-canvas" style="width: 100%; display: block; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md);"></canvas>
+  </div>
+</div>
+<script>
+const SAT = [
+  [0.01,0.000612,0.0000,9.1562,0.00,2501.3,2501.4],
+  [10,0.001228,0.1511,8.9008,42.0,2477.7,2519.7],
+  [20,0.002338,0.2966,8.6672,83.9,2454.1,2538.1],
+  [30,0.004246,0.4369,8.4520,125.8,2430.5,2556.3],
+  [40,0.007384,0.5725,8.2570,167.5,2406.8,2574.3],
+  [50,0.012349,0.7038,8.0763,209.3,2382.7,2592.1],
+  [60,0.019940,0.8313,7.9096,251.1,2358.5,2609.6],
+  [70,0.031190,0.9549,7.7553,292.9,2333.8,2626.8],
+  [80,0.047390,1.0753,7.6122,334.9,2308.8,2643.7],
+  [90,0.070140,1.1925,7.4791,376.9,2283.2,2660.1],
+  [100,0.101420,1.3069,7.3554,419.0,2256.9,2675.9],
+  [110,0.143270,1.4185,7.2387,461.3,2230.2,2691.5],
+  [120,0.198540,1.5279,7.1296,503.7,2202.6,2706.3],
+  [130,0.270280,1.6350,7.0269,546.4,2174.4,2720.5],
+  [140,0.361400,1.7391,6.9299,589.1,2144.7,2733.9],
+  [150,0.476200,1.8418,6.8380,632.2,2114.3,2746.5],
+  [160,0.618200,1.9427,6.7502,675.6,2082.6,2758.1],
+  [170,0.792200,2.0421,6.6663,719.2,2049.9,2769.1],
+  [180,1.002800,2.1387,6.5857,763.2,2015.3,2778.2],
+  [190,1.255000,2.2338,6.5079,807.6,1978.8,2786.4],
+  [200,1.553800,2.3308,6.4302,852.4,1940.7,2793.2],
+  [210,1.906200,2.4248,6.3584,897.7,1900.7,2798.5],
+  [220,2.318000,2.5175,6.2840,943.6,1858.5,2802.1],
+  [230,2.795000,2.6101,6.2121,990.3,1813.9,2804.2],
+  [240,3.346000,2.7020,6.1433,1037.5,1766.5,2803.8],
+  [250,3.976000,2.7935,6.0730,1085.4,1715.9,2801.4],
+  [260,4.692000,2.8838,6.0019,1134.4,1661.5,2795.6],
+  [270,5.503000,2.9751,5.9301,1184.5,1604.0,2788.4],
+  [280,6.417000,3.0681,5.8565,1235.0,1543.6,2778.6],
+  [290,7.444000,3.1616,5.7821,1286.8,1477.1,2764.6],
+  [300,8.581000,3.2552,5.7059,1341.3,1404.9,2749.0],
+  [310,9.856000,3.3520,5.6265,1397.4,1325.9,2725.3],
+  [320,11.274000,3.4480,5.5480,1461.1,1238.6,2699.7],
+  [330,12.845000,3.5480,5.4608,1525.3,1140.3,2665.6],
+  [340,14.601000,3.6577,5.3357,1594.2,1027.9,2622.0],
+  [350,16.529000,3.7784,5.2112,1670.6,893.0,2563.6],
+  [360,18.651000,3.9388,5.0536,1761.7,720.5,2481.0],
+  [370,21.030000,4.1108,4.8012,1890.5,452.6,2333.0],
+  [374.14,22.090000,4.4120,4.4120,2099.3,0,2099.3]
+];
+
+function satAtP(P) {
+  if (P <= SAT[0][1]) { const r=SAT[0]; return {T:r[0],sf:r[2],sg:r[3],hf:r[4],hfg:r[5],hg:r[6]}; }
+  if (P >= SAT[SAT.length-1][1]) { const r=SAT[SAT.length-1]; return {T:r[0],sf:r[2],sg:r[3],hf:r[4],hfg:r[5],hg:r[6]}; }
+  for (let i=0;i<SAT.length-1;i++) {
+    if (P>=SAT[i][1] && P<=SAT[i+1][1]) {
+      const t=(P-SAT[i][1])/(SAT[i+1][1]-SAT[i][1]);
+      const a=SAT[i],b=SAT[i+1];
+      return {T:a[0]+t*(b[0]-a[0]),sf:a[2]+t*(b[2]-a[2]),sg:a[3]+t*(b[3]-a[3]),hf:a[4]+t*(b[4]-a[4]),hfg:a[5]+t*(b[5]-a[5]),hg:a[6]+t*(b[6]-a[6])};
+    }
+  }
+}
+
+function computeCycle(Phi,Plo) {
+  const hi=satAtP(Phi), lo=satAtP(Plo);
+  const s1=hi.sg,h1=hi.hg,T1=hi.T;
+  const s3=lo.sf,h3=lo.hf,T3=lo.T;
+  const s2=s1;
+  const x2=(s2-lo.sf)/(lo.sg-lo.sf);
+  const h2=lo.hf+x2*lo.hfg;
+  const T2=lo.T;
+  const wpump=0.001*(Phi-Plo)*1000;
+  const h4=h3+wpump,s4=s3,T4=T3;
+  const wnet=(h1-h2)-wpump;
+  const qin=h1-h4;
+  return {s1,T1,s2,T2,h2,s3,T3,s4,T4,x2,eta:wnet/qin,T_hi:T1,T_lo:T3,sf_hi:hi.sf};
+}
+
+const canvas=document.getElementById('ts-canvas');
+const ML=52,MR=18,MT=20,MB=44;
+const SMIN=0,SMAX=10,TMIN=0,TMAX=400;
+
+function pt(s,T,W,H){
+  return {x:ML+(s-SMIN)/(SMAX-SMIN)*(W-ML-MR),y:MT+(TMAX-T)/(TMAX-TMIN)*(H-MT-MB)};
+}
+
+function arrow(ctx,x,y,angle,color){
+  ctx.save();ctx.fillStyle=color;ctx.translate(x,y);ctx.rotate(angle);
+  ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-9,-4);ctx.lineTo(-9,4);ctx.closePath();ctx.fill();ctx.restore();
+}
+
+function draw(Phi,Plo){
+  const dark=matchMedia('(prefers-color-scheme: dark)').matches;
+  const dpr=window.devicePixelRatio||1;
+  const W=canvas.parentElement.getBoundingClientRect().width||640;
+  const H=Math.round(W*0.56);
+  canvas.style.height=H+'px';
+  canvas.width=W*dpr; canvas.height=H*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+
+  const fg=dark?'#c8c8c8':'#444';
+  const fgMid=dark?'#888':'#999';
+  const grid=dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.06)';
+  const dome=dark?'#85B7EB':'#185FA5';
+  const cyc=dark?'#F0997B':'#993C1D';
+  const bg=dark?'rgba(18,18,18,0.88)':'rgba(255,255,255,0.92)';
+
+  ctx.strokeStyle=grid; ctx.lineWidth=0.5;
+  for(let s=0;s<=10;s++){const p=pt(s,0,W,H);ctx.beginPath();ctx.moveTo(p.x,MT);ctx.lineTo(p.x,H-MB);ctx.stroke();}
+  for(let T=0;T<=400;T+=50){const p=pt(0,T,W,H);ctx.beginPath();ctx.moveTo(ML,p.y);ctx.lineTo(W-MR,p.y);ctx.stroke();}
+
+  ctx.strokeStyle=dark?'#555':'#ccc'; ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(ML,MT);ctx.lineTo(ML,H-MB);ctx.lineTo(W-MR,H-MB);ctx.stroke();
+
+  ctx.fillStyle=fg; ctx.font='12px var(--font-sans,system-ui)';
+  ctx.textAlign='center';
+  for(let s=0;s<=10;s+=2){const p=pt(s,TMIN,W,H);ctx.fillText(s,p.x,p.y+17);}
+  ctx.fillText('s  (kJ / kg·K)',ML+(W-ML-MR)/2,H-6);
+  ctx.textAlign='right';
+  for(let T=0;T<=400;T+=100){const p=pt(SMIN,T,W,H);ctx.fillText(T,p.x-7,p.y+4);}
+  ctx.save();ctx.translate(13,MT+(H-MT-MB)/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.fillText('T  (°C)',0,0);ctx.restore();
+
+  ctx.strokeStyle=dome; ctx.lineWidth=1.5;
+  ctx.beginPath();let first=true;
+  for(const r of SAT){const p=pt(r[2],r[0],W,H);first?(ctx.moveTo(p.x,p.y),first=false):ctx.lineTo(p.x,p.y);}
+  ctx.stroke();
+  ctx.beginPath();first=true;
+  for(const r of [...SAT].reverse()){const p=pt(r[3],r[0],W,H);first?(ctx.moveTo(p.x,p.y),first=false):ctx.lineTo(p.x,p.y);}
+  ctx.stroke();
+
+  const cycs=computeCycle(Phi,Plo);
+  const p1=pt(cycs.s1,cycs.T1,W,H),p2=pt(cycs.s2,cycs.T2,W,H),p3=pt(cycs.s3,cycs.T3,W,H),p4=pt(cycs.s4,cycs.T4,W,H);
+
+  ctx.strokeStyle=cyc; ctx.lineWidth=2.2; ctx.setLineDash([]);
+
+  ctx.beginPath();ctx.moveTo(p4.x,p4.y);
+  for(const r of SAT){if(r[0]<cycs.T_lo-0.5||r[0]>cycs.T_hi+0.5)continue;const p=pt(r[2],r[0],W,H);ctx.lineTo(p.x,p.y);}
+  ctx.lineTo(p1.x,p1.y);ctx.stroke();
+
+  ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(p2.x,p2.y);ctx.lineTo(p3.x,p3.y);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(p3.x,p3.y);ctx.lineTo(p4.x,p4.y);ctx.stroke();
+
+  const pBoilMid=pt((cycs.sf_hi+cycs.s1)/2,cycs.T1,W,H);
+  arrow(ctx,pBoilMid.x,pBoilMid.y,0,cyc);
+  const pTurbMid=pt(cycs.s1,(cycs.T1+cycs.T2)/2,W,H);
+  arrow(ctx,pTurbMid.x,pTurbMid.y,Math.PI/2,cyc);
+  const pCondMid=pt((cycs.s2+cycs.s3)/2,cycs.T2,W,H);
+  arrow(ctx,pCondMid.x,pCondMid.y,Math.PI,cyc);
+
+  function dot(x,y){ctx.beginPath();ctx.arc(x,y,4.5,0,2*Math.PI);ctx.fillStyle=cyc;ctx.fill();}
+  function stLabel(txt,x,y,dx,dy){
+    ctx.font='500 13px var(--font-sans,system-ui)';ctx.textAlign='center';
+    const tx=x+dx,ty=y+dy;
+    ctx.fillStyle=bg;ctx.fillRect(tx-11,ty-13,22,17);
+    ctx.fillStyle=cyc;ctx.fillText(txt,tx,ty);
+  }
+  dot(p1.x,p1.y);stLabel('1',p1.x,p1.y,15,-7);
+  dot(p2.x,p2.y);stLabel('2',p2.x,p2.y,15,8);
+  dot(p3.x,p3.y);stLabel('3',p3.x,p3.y,-15,8);
+  dot(p4.x,p4.y);stLabel('4',p4.x,p4.y,-15,-7);
+
+  ctx.fillStyle=fgMid; ctx.font='11px var(--font-sans,system-ui)'; ctx.textAlign='center';
+  ctx.fillText('Turbine',p1.x+22,(p1.y+p2.y)/2);
+  ctx.fillText('Condenser',(p2.x+p3.x)/2,p2.y+19);
+  const boilerLabelX=pt((cycs.sf_hi+cycs.s1*2)/3,cycs.T1,W,H).x;
+  ctx.fillText('Boiler',boilerLabelX,p1.y-11);
+  ctx.fillText('Pump',(p3.x+p4.x)/2+18,p3.y+19);
+
+  document.getElementById('eta').textContent=(cycs.eta*100).toFixed(1)+'%';
+  const xColor=cycs.x2<0.85?'#a32d2d':cycs.x2<0.90?'#ba7517':'inherit';
+  document.getElementById('quality').style.color=xColor;
+  document.getElementById('quality').textContent=cycs.x2.toFixed(3);
+  document.getElementById('t-boiler').textContent=cycs.T1.toFixed(0)+' °C';
+  document.getElementById('t-cond').textContent=cycs.T3.toFixed(0)+' °C';
+}
+
+const phS=document.getElementById('p-high'),plS=document.getElementById('p-low');
+function update(){
+  const ph=parseFloat(phS.value),pl=parseFloat(plS.value)/1000;
+  document.getElementById('p-high-out').textContent=ph.toFixed(1)+' MPa';
+  document.getElementById('p-low-out').textContent=parseFloat(plS.value).toFixed(0)+' kPa';
+  draw(ph,pl);
+}
+phS.addEventListener('input',update);
+plS.addEventListener('input',update);
+requestAnimationFrame(update);
+window.addEventListener('resize',()=>requestAnimationFrame(update));
+</script>

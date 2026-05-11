@@ -1,0 +1,474 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const sections = [
+  {
+    label: "Concepts",
+    slug: "concepts",
+    color: "#0891B2",
+    desc: "Enthalpy, entropy, steam quality, exergy, and second law efficiency. The thermodynamic vocabulary you'll need before diving into the cycle itself.",
+    available: true,
+  },
+  {
+    label: "Why the Rankine Cycle?",
+    slug: "why-rankine",
+    color: "#16A34A",
+    desc: "Why the Rankine cycle exists, why water is the working fluid, and who uses it: nuclear, coal, natural gas, solar, geothermal, fusion, and more.",
+    available: true,
+  },
+  {
+    label: "Basic Rankine Cycle",
+    slug: "basic-rankine-cycle",
+    color: "#1865F2",
+    desc: "The ideal four-process cycle: pump, boiler, turbine, condenser. Interactive T-s diagram with adjustable sliders using real Oswego climate data.",
+    available: false,
+  },
+  {
+    label: "Nuclear Reheat Rankine Cycle",
+    slug: "nuclear-reheat",
+    color: "#7C3AED",
+    desc: "Two turbine stages with reheating in between. How this solves the steam quality problem that makes the basic cycle impractical for nuclear plants.",
+    available: false,
+  },
+  {
+    label: "Nuclear Reheat Regenerative Rankine Cycle",
+    slug: "reheat-regenerative",
+    color: "#EA580C",
+    desc: "Feedwater heaters, regeneration, and extraction fraction. Recovering heat before the condenser and seeing how it shifts efficiency.",
+    available: false,
+  },
+  {
+    label: "Reactor & Turbine Materials",
+    slug: "reactor-turbine-materials",
+    color: "#0891B2",
+    desc: "The metallurgy and materials science behind reactor pressure vessels, turbine blades, and components operating under extreme temperature, pressure, and radiation.",
+    available: false,
+  },
+];
+
+const nmpFacts = [
+  {
+    stat: "#1",
+    label: "Oldest Operating Reactor",
+    detail: "Unit 1 first achieved criticality in 1969 and remains the oldest operating nuclear reactor in the United States.",
+    color: "#1865F2",
+  },
+  {
+    stat: "BWR-2 + BWR-5",
+    label: "Two Very Different Reactors",
+    detail: "Both units are GE boiling water reactors, but Unit 1 (BWR-2, no cooling tower) and Unit 2 (BWR-5, with cooling tower) have dramatically different designs and power outputs.",
+    color: "#16A34A",
+  },
+  {
+    stat: "H₂",
+    label: "First Nuclear Hydrogen",
+    detail: "Nine Mile Point is the first U.S. nuclear facility to generate clean hydrogen through electrolysis, used primarily for generator cooling.",
+    color: "#0891B2",
+  },
+  {
+    stat: "+1",
+    label: "FitzPatrick Next Door",
+    detail: "James A. FitzPatrick Nuclear Power Plant (GE BWR-4) is located a few miles to the northeast of Oswego, making the area home to three operating nuclear reactors.",
+    color: "#7C3AED",
+  },
+];
+---
+
+<Base
+  title="Introduction | Nuclear Rankine Cycle"
+  activeNav="introduction"
+  description="An interactive thermodynamics reference for students and interns/new hires at nuclear power plants. Covers the Rankine cycle from basics through exergy analysis."
+>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Thermodynamics Reference</p>
+      <h1>Nuclear Rankine Cycle</h1>
+      <p class="hero-lead">
+        An interactive guide to the thermodynamic cycle at the heart of every nuclear power plant.
+        Built for thermodynamics students and interns/new hires at nuclear plants who want a solid
+        understanding of how the Rankine cycle loop works.
+      </p>
+      <div class="hero-actions">
+        <a href={`${base}concepts`} class="btn-primary">Start with Concepts</a>
+        <a href={`${base}why-rankine`} class="btn-secondary">Why the Rankine Cycle?</a>
+      </div>
+    </div>
+
+    <div class="hero-diagram" aria-hidden="true">
+      <div class="ts-placeholder">
+        <p class="ts-placeholder-label">T-s Diagram</p>
+        <p class="ts-placeholder-sub">Coming in Basic Rankine Cycle section</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About This Reference ── -->
+  <div class="sec-banner" style="background:#1865F2;">
+    <h2 class="inner">About This Reference</h2>
+  </div>
+  <div class="content-row">
+    <div class="inner about-layout">
+      <div class="about-body">
+        <p>
+          This site covers the Rankine cycle in the context of nuclear energy, with interactive
+          components that let you adjust pump power, heat input, extraction fraction, and time of
+          year to see how they affect plant output and efficiency in real time.
+        </p>
+        <p>
+          It is built for two audiences. First, <strong>thermodynamics students</strong> who want
+          to go deeper than manually flipping through steam tables. All T-s diagrams pull from
+          <strong>NIST steam table data</strong> with standard linear interpolation. Formulas are
+          the same ones derived in your thermodynamics classes.
+        </p>
+        <p>
+          Second, <strong>interns and new hires at nuclear power plants</strong> who want a
+          practical reference for connecting classroom thermodynamics to plant operation.
+        </p>
+        <p>
+          If you are a student at the <strong>University of Michigan</strong>, this site may have
+          been linked in your ME&nbsp;235, ME&nbsp;336, or ME&nbsp;433 class.
+        </p>
+      </div>
+      <div class="courses-sidebar">
+        <p class="courses-heading">Relevant Coursework</p>
+        <div class="course-tag">ME 235: Introduction to Thermodynamics</div>
+        <div class="course-tag">ME 336: Advanced Thermodynamics</div>
+        <div class="course-tag">ME 433: Advanced Energy Solutions</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── About Me ── -->
+  <div class="sec-banner" style="background:#0F2147;">
+    <h2 class="inner">About Me</h2>
+  </div>
+  <div class="content-row content-row--bg">
+    <div class="inner me-layout">
+      <div class="me-info">
+        <div class="me-name-block">
+          <p class="me-name">Adam Heiler</p>
+          <p class="me-affil">University of Michigan, College of Engineering</p>
+        </div>
+        <p>
+          I'm an engineering student at Michigan with a focus on clean energy and thermodynamics.
+          I've completed <strong>Introduction to Thermodynamics (ME&nbsp;235)</strong>,
+          <strong>Advanced Thermodynamics (ME&nbsp;336)</strong>, and
+          <strong>Advanced Energy Solutions (ME&nbsp;433)</strong>.
+        </p>
+        <p>
+          I interned at <strong>Nine Mile Point Nuclear Station</strong> in Oswego, NY for two
+          summers as a Strategic/Systems Engineering Intern. Watching the plant operate while
+          studying the thermodynamics behind it motivated me to build this reference.
+        </p>
+      </div>
+      <div class="me-photo-block">
+        <img
+          src={`${base}pics/me.JPG`}
+          alt="Adam Heiler standing in the Nine Mile Point Unit 1 Control Room Simulator"
+          class="me-photo"
+        />
+        <p class="me-photo-caption">
+          Standing in the Nine Mile Point Unit 1 Control Room Simulator
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── A Little About Nine Mile Point ── -->
+  <div class="sec-banner" style="background:#0891B2;">
+    <h2 class="inner">A Little About Nine Mile Point</h2>
+  </div>
+  <div class="content-row">
+    <div class="inner">
+      <p class="nmp-intro">
+        Because I've spent a good deal of time at Nine Mile Point, it will come up throughout this
+        website as a concrete example. A few things worth knowing about the plant:
+      </p>
+      <div class="nmp-grid">
+        {nmpFacts.map((f) => (
+          <div class="nmp-card" style={`border-top: 5px solid ${f.color};`}>
+            <div class="nmp-stat" style={`color: ${f.color};`}>{f.stat}</div>
+            <div class="nmp-label">{f.label}</div>
+            <p class="nmp-detail">{f.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Course Sections ── -->
+  <div class="sec-banner" style="background:#7C3AED;">
+    <h2 class="inner">Course Sections</h2>
+  </div>
+  <div class="content-row content-row--bg">
+    <div class="inner">
+      <p class="sections-intro">
+        The sections build on each other, but you don't have to start at the beginning.
+        <strong>Concepts</strong> covers the thermodynamic vocabulary. If you're already comfortable
+        with enthalpy, entropy, and steam quality, jump straight to
+        <strong>Basic Rankine Cycle</strong>.
+      </p>
+      <div class="sections-grid">
+        {sections.map((sec) => (
+          <div class={`sec-card${sec.available ? "" : " sec-card--soon"}`}>
+            <div class="sec-card-bar" style={`background:${sec.color};`}></div>
+            <div class="sec-card-body">
+              <p class="sec-card-label">{sec.label}</p>
+              <p class="sec-card-desc">{sec.desc}</p>
+              {sec.available ? (
+                <a href={`${base}${sec.slug}`} class="sec-card-link" style={`color:${sec.color};`}>
+                  Open &rarr;
+                </a>
+              ) : (
+                <span class="sec-card-soon">Coming soon</span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</Base>
+
+<style>
+  /* ── Hero ── */
+  .hero {
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 3.5rem;
+    align-items: center;
+    padding: 4.5rem 2.5rem;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: 3.75rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.035em;
+    line-height: 1.0;
+    margin-bottom: 1.375rem;
+  }
+  .hero-lead {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 520px;
+    margin-bottom: 2rem;
+    line-height: 1.75;
+  }
+  .hero-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; }
+  .hero-diagram  { width: 100%; }
+
+  .ts-placeholder {
+    background: rgba(255,255,255,0.05);
+    border: 2px dashed rgba(255,255,255,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 260px;
+    gap: 0.5rem;
+  }
+  .ts-placeholder-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .ts-placeholder-sub {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── About block ── */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-body p { color: var(--muted); margin-bottom: 0.875rem; font-size: 1.025rem; line-height: 1.8; }
+  .about-body p:last-child { margin-bottom: 0; }
+
+  .courses-sidebar {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-top: 5px solid var(--navy);
+    align-self: start;
+  }
+  .courses-heading {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--subtle);
+    margin-bottom: 1rem;
+  }
+  .course-tag {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--navy);
+    padding: 0.5rem 0.75rem;
+    border-left: 3px solid var(--navy);
+    background: var(--bg);
+    margin-bottom: 0.5rem;
+  }
+  .course-tag:last-child { margin-bottom: 0; }
+
+  /* ── About Me layout ── */
+  .me-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 4rem;
+    align-items: start;
+  }
+  .me-name-block { margin-bottom: 1.25rem; }
+  .me-name {
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.03em;
+  }
+  .me-affil {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+  .me-info p { color: var(--muted); margin-bottom: 0.875rem; }
+  .me-info p:last-child { margin-bottom: 0; }
+
+  .me-photo-block { text-align: center; }
+  .me-photo {
+    width: 100%;
+    display: block;
+    border-top: 5px solid var(--teal);
+  }
+  .me-photo-caption {
+    font-size: 0.78rem;
+    color: var(--subtle);
+    margin-top: 0.5rem;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  /* ── NMP intro ── */
+  .nmp-intro {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+    max-width: 720px;
+    line-height: 1.75;
+  }
+
+  /* ── NMP facts ── */
+  .nmp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .nmp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+  .nmp-stat {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    font-family: var(--mono);
+  }
+  .nmp-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .nmp-detail {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Course sections ── */
+  .sections-intro {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+    max-width: 700px;
+    line-height: 1.75;
+  }
+  .sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1rem;
+  }
+  .sec-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+  }
+  .sec-card--soon { opacity: 0.55; }
+  .sec-card-bar { width: 6px; flex-shrink: 0; }
+  .sec-card-body { padding: 1.125rem 1.25rem; flex: 1; }
+  .sec-card-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+  .sec-card-desc {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+  .sec-card-link { font-size: 0.8rem; font-weight: 700; }
+  .sec-card-link:hover { text-decoration: underline; }
+  .sec-card-soon {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--subtle);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    display: inline-block;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .nmp-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero      { grid-template-columns: 1fr 300px; gap: 2.5rem; }
+  }
+  @media (max-width: 860px) {
+    .hero        { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+    .hero h1     { font-size: 2.75rem; }
+    .hero-diagram { max-width: 380px; }
+    .about-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .me-layout   { grid-template-columns: 1fr; gap: 2rem; }
+    .me-photo-block { max-width: 320px; }
+  }
+  @media (max-width: 600px) {
+    .hero h1    { font-size: 2.2rem; }
+    .nmp-grid   { grid-template-columns: 1fr; }
+    .sections-grid { grid-template-columns: 1fr; }
+  }
+</style>

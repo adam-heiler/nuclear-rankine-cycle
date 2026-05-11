@@ -1,0 +1,839 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Base
+  title="Why the Rankine Cycle? | Nuclear Rankine Cycle"
+  activeNav="why-rankine"
+  description="Why the Rankine cycle exists, why water is the working fluid, and every industry that relies on it — from nuclear fission to fusion."
+>
+
+  <!-- ── Page Hero ── -->
+  <div class="page-hero" style="background:#16A34A;">
+    <div class="inner">
+      <p class="hero-eyebrow">Motivation</p>
+      <h1>Why the Rankine Cycle?</h1>
+      <p class="hero-sub">
+        From heat to electricity: why this thermodynamic cycle dominates power generation,
+        why water is the universal working fluid, and who else uses it besides nuclear plants.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── The Heat-to-Rotation Problem ── -->
+  <div class="sec-banner" style="background:#16A34A;">
+    <h2 class="inner">The Heat-to-Rotation Problem</h2>
+  </div>
+  <div class="content-row">
+    <div class="inner content-cols">
+      <div>
+        <p>
+          Most primary energy sources produce only <em>heat</em>, not rotation. Nuclear fission,
+          combustion, concentrated sunlight, and geothermal heat are all essentially sources of
+          thermal energy. Spinning a generator is one common way to convert that energy into
+          electricity, but the challenge is getting from heat to useful mechanical motion in the
+          first place. The Rankine cycle is the dominant thermodynamic solution to that problem
+          and has been for over 150 years.
+        </p>
+        <p>
+          The key insight is <strong>phase change</strong>. When water boils at atmospheric
+          pressure it expands to roughly 1,600 times its liquid
+          volume.<sup><a href="#ref-1" class="cite">[1]</a></sup> Channel that expanding steam
+          through a turbine and you have a practical, continuous, high-power machine. Condense
+          it back to liquid, and the pump can return it to high pressure for a fraction of the
+          energy cost of compressing a gas. Liquids are nearly incompressible. This asymmetry
+          between pumping a liquid and compressing a gas is what makes the cycle efficient.
+        </p>
+        <p>
+          Unlike internal combustion engines, which produce pulsed strokes, steam turbines are
+          <strong>steady-flow devices</strong>. They operate at stable, continuous conditions for
+          months at a time. A single large steam turbine at a nuclear plant can produce over
+          1,000 MW,<sup><a href="#ref-2" class="cite">[2]</a></sup> enough electricity for
+          roughly one million homes.
+        </p>
+      </div>
+      <div>
+        <div class="callout callout--info">
+          <div class="callout-icon">i</div>
+          <div class="callout-body">
+            <strong>Not just for electricity</strong>
+            <p>
+              Any application needing shaft work from heat can use a Rankine cycle. Marine ship
+              propulsion, industrial drives, and spacecraft power systems have all used
+              Rankine-based designs. But large-scale electricity generation is where it has no
+              serious rival for high-temperature heat sources.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Why Water? ── -->
+  <div class="sec-banner" style="background:#0891B2;">
+    <h2 class="inner">Why Water?</h2>
+  </div>
+  <div class="content-row content-row--bg">
+    <div class="inner">
+      <p class="section-lead">
+        Water is remarkably well-suited to this cycle. Its advantages are numerous and they
+        compound:
+      </p>
+      <div class="prop-grid">
+        <div class="prop-card" style="border-top:5px solid #D97706;">
+          <div class="prop-title">Heat of Vaporization</div>
+          <div class="prop-value">2,260 kJ/kg<sup><a href="#ref-3" class="cite">[3]</a></sup></div>
+          <p class="prop-desc">
+            Water absorbs an enormous amount of energy during boiling with minimal temperature
+            change. This lets boilers transfer large heat fluxes efficiently and keeps the T-s
+            diagram spanning a wide, useful temperature range.
+          </p>
+        </div>
+        <div class="prop-card" style="border-top:5px solid #16A34A;">
+          <div class="prop-title">Availability</div>
+          <div class="prop-value">&sim;71% of Earth's surface</div>
+          <p class="prop-desc">
+            Power plants site near rivers, lakes, or coastlines for cooling water. Nine Mile
+            Point, for example, draws from Lake Ontario. In industrial quantities, supply is
+            never a constraint.
+          </p>
+        </div>
+        <div class="prop-card" style="border-top:5px solid #1865F2;">
+          <div class="prop-title">Safety</div>
+          <div class="prop-value">Non-toxic, non-flammable</div>
+          <p class="prop-desc">
+            A steam leak is loud and causes thermal burns, but carries no chemical hazard.
+            This simplifies safety engineering dramatically compared to hydrocarbon working
+            fluids.
+          </p>
+        </div>
+        <div class="prop-card" style="border-top:5px solid #7C3AED;">
+          <div class="prop-title">Chemical Stability</div>
+          <div class="prop-value">Stable to &sim;650&deg;C<sup><a href="#ref-1" class="cite">[1]</a></sup></div>
+          <p class="prop-desc">
+            Water doesn't decompose at operating temperatures. It's among the best-characterized
+            substances in thermodynamics. Steam tables cover the full operating range with high
+            precision (see NIST Webbook).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Who Uses It? ── -->
+  <div class="sec-banner" style="background:#0F2147;">
+    <h2 class="inner">Who Uses It?</h2>
+  </div>
+  <div class="content-row content-row--bg">
+    <div class="inner">
+      <p class="section-lead">
+        The Rankine cycle is the thermodynamic backbone of most large-scale electricity
+        generation on Earth. Any industry that produces heat and needs to spin a generator uses
+        some variant of this cycle.
+      </p>
+      <div class="app-grid">
+
+        <!-- Nuclear Fission — featured, full width -->
+        <article class="app-card app-card--featured">
+          <div class="app-card-accent" style="background:#1865F2;"></div>
+          <div class="app-card-body">
+            <div class="app-card-head">
+              <div>
+                <div class="app-tag" style="color:#1865F2;">Most Relevant to You</div>
+                <h3 class="app-name">Nuclear Fission</h3>
+                <div class="app-type">BWR, PWR, PHWR, AGR, RBMK, and more</div>
+              </div>
+              <div class="app-icon-wrap" style="background:#EFF6FF; color:#1865F2;" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <circle cx="24" cy="24" r="4" fill="currentColor"/>
+                  <ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="2"/>
+                  <ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="2" transform="rotate(60 24 24)"/>
+                  <ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="2" transform="rotate(120 24 24)"/>
+                </svg>
+              </div>
+            </div>
+            <p>
+              Nuclear fission reactors generate heat by splitting heavy atomic nuclei, primarily
+              uranium-235.<sup><a href="#ref-2" class="cite">[2]</a></sup> That heat drives a
+              Rankine cycle. Two reactor designs dominate commercial nuclear power in the United
+              States and differ fundamentally in how they handle heat transfer:
+            </p>
+            <div class="reactor-cols">
+              <div class="reactor-box">
+                <h4>Boiling Water Reactor (BWR)</h4>
+                <p>
+                  Water boils directly inside the reactor pressure vessel. Steam travels straight
+                  to the turbine with no intermediate loop. The design is mechanically simpler,
+                  but the turbine handles mildly radioactive steam and requires shielding and
+                  careful maintenance scheduling.
+                </p>
+                <p class="local-note">
+                  Nine Mile Point Units 1 and 2, along with the nearby James A. FitzPatrick
+                  plant, are all GE BWRs on the shore of Lake Ontario near Oswego,
+                  NY.<sup><a href="#ref-2" class="cite">[2]</a></sup>
+                </p>
+              </div>
+              <div class="reactor-box">
+                <h4>Pressurized Water Reactor (PWR)</h4>
+                <p>
+                  Two entirely separate water loops keep the radioactive primary coolant isolated
+                  from the turbine. The primary loop runs at ~155 bar,<sup><a href="#ref-2" class="cite">[2]</a></sup>
+                  hot enough to boil, but pressure prevents it. Heat exchangers called
+                  <em>steam generators</em> transfer energy to a clean secondary loop that
+                  produces the turbine steam. PWRs are the most common reactor type worldwide.
+                </p>
+              </div>
+            </div>
+            <p>
+              Other reactor types are in commercial operation around the world. Canada's
+              <strong>PHWR (CANDU)</strong> uses heavy water as both moderator and coolant,
+              allowing refueling at full power. Russia's <strong>RBMK</strong> (graphite-moderated,
+              water-cooled) and the UK's <strong>AGR</strong> (gas-cooled) represent distinct
+              design philosophies, and high-temperature gas reactors
+              (<strong>HTR/HTGR</strong>) are being developed for both power and industrial heat
+              applications. BWRs and PWRs, however, dominate U.S. commercial nuclear
+              power.<sup><a href="#ref-4" class="cite">[4]</a></sup>
+            </p>
+            <a class="learn-link" href="https://www.nrc.gov/reading-rm/basic-ref/students/reactors.html" target="_blank" rel="noopener noreferrer">
+              NRC: Types of nuclear reactors &rarr;
+            </a>
+          </div>
+        </article>
+
+        <!-- Nuclear Fusion — featured, full width, directly below fission -->
+        <article class="app-card app-card--featured">
+          <div class="app-card-accent" style="background:#7C3AED;"></div>
+          <div class="app-card-body">
+            <div class="app-card-head">
+              <div>
+                <div class="app-tag" style="color:#7C3AED;">Emerging Technology</div>
+                <h3 class="app-name">Nuclear Fusion</h3>
+                <div class="app-type">Some designs use the Rankine cycle. Others may bypass it entirely.</div>
+              </div>
+              <div class="app-icon-wrap" style="background:#F5F3FF; color:#7C3AED;" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <circle cx="24" cy="24" r="5" fill="currentColor"/>
+                  <circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+                  <circle cx="24" cy="10" r="2.5" fill="currentColor" opacity="0.65"/>
+                  <circle cx="36" cy="31" r="2.5" fill="currentColor" opacity="0.65"/>
+                  <circle cx="12" cy="31" r="2.5" fill="currentColor" opacity="0.65"/>
+                </svg>
+              </div>
+            </div>
+            <p>
+              Fusion releases energy by fusing light nuclei (typically deuterium and tritium)
+              rather than splitting heavy ones. The energy release per reaction is enormous and
+              produces no long-lived radioactive waste. Commercial fusion plants don't exist yet,
+              but several private companies are making rapid progress. The approaches to confining
+              plasma and converting fusion energy to electricity differ fundamentally.
+            </p>
+            <div class="reactor-cols">
+              <div class="reactor-box">
+                <h4>Tokamak Confinement (Magnetic)</h4>
+                <p>
+                  A tokamak uses a donut-shaped magnetic field to confine a superheated plasma.
+                  Commonwealth Fusion Systems (CFS) is building a compact tokamak called SPARC,
+                  with a commercial plant (ARC) planned to
+                  follow.<sup><a href="#ref-5" class="cite">[5]</a></sup> ARC extracts heat
+                  from a lithium blanket surrounding the plasma and uses a conventional
+                  <strong>Rankine cycle</strong> to generate electricity. Thermodynamically, it
+                  would work much like a fission plant: high-temperature heat in, steam turbines,
+                  electricity out. ITER, the international research tokamak under construction in
+                  France, is the largest such machine ever built.
+                </p>
+                <a class="learn-link" href="https://www.cfs.energy" target="_blank" rel="noopener noreferrer">Commonwealth Fusion Systems &rarr;</a>
+              </div>
+              <div class="reactor-box">
+                <h4>Inertial Confinement and Direct Conversion</h4>
+                <p>
+                  Inertial confinement fusion (ICF) uses lasers or particle beams to compress and
+                  ignite a small fuel pellet. The National Ignition Facility achieved fusion
+                  ignition in 2022.<sup><a href="#ref-6" class="cite">[6]</a></sup> Commercial
+                  ICF plants would likely still use a thermal cycle to convert the resulting heat.
+                </p>
+                <p>
+                  Helion Energy is pursuing a different approach entirely: rather than extracting
+                  heat, Helion plans to <em>directly convert</em> the kinetic energy of the
+                  expanding fusion plasma into electricity via a changing magnetic field. If
+                  successful, this would <strong>bypass the Rankine cycle</strong> and its
+                  thermodynamic efficiency limits. Helion has a signed contract to supply
+                  electricity to Microsoft.
+                </p>
+                <a class="learn-link" href="https://www.helionenergy.com" target="_blank" rel="noopener noreferrer">Helion Energy &rarr;</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Coal -->
+        <article class="app-card">
+          <div class="app-card-accent" style="background:#DC2626;"></div>
+          <div class="app-card-body">
+            <div class="app-card-head">
+              <div>
+                <div class="app-tag" style="color:#DC2626;">Fossil Fuel</div>
+                <h3 class="app-name">Coal</h3>
+                <div class="app-type">Pulverized coal boiler plants</div>
+              </div>
+              <div class="app-icon-wrap" style="background:#FEF2F2; color:#DC2626;" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <path d="M17 9L27 7L36 13L40 23L37 33L29 40L18 41L9 34L7 22L13 14Z" fill="currentColor" opacity="0.2"/>
+                  <path d="M17 9L27 7L36 13L40 23L37 33L29 40L18 41L9 34L7 22L13 14Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+                  <path d="M17 9L23 19L13 14" stroke="currentColor" stroke-width="1.5" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M27 7L23 19L36 13" stroke="currentColor" stroke-width="1.5" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M23 19L37 33" stroke="currentColor" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+                  <path d="M23 19L9 34" stroke="currentColor" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <p>
+              Coal plants burn pulverized coal in a large furnace to heat a boiler to approximately
+              540&deg;C,<sup><a href="#ref-1" class="cite">[1]</a></sup> producing high-pressure
+              steam for the turbine. Coal dominated electricity generation for most of the 20th
+              century. In recent decades its economics have deteriorated significantly: natural gas
+              became cheaper per BTU, wind and solar became cheaper per kWh in most markets, and
+              environmental regulations on mercury, SO<sub>2</sub>, NO<sub>x</sub>, and particulates
+              added significant compliance costs. U.S. coal electricity generation has fallen more
+              than 60% since its 2007 peak.<sup><a href="#ref-7" class="cite">[7]</a></sup>
+            </p>
+            <a class="learn-link" href="https://www.eia.gov/energyexplained/coal/" target="_blank" rel="noopener noreferrer">EIA: Coal explained &rarr;</a>
+          </div>
+        </article>
+
+        <!-- Oil -->
+        <article class="app-card">
+          <div class="app-card-accent" style="background:#92400E;"></div>
+          <div class="app-card-body">
+            <div class="app-card-head">
+              <div>
+                <div class="app-tag" style="color:#92400E;">Fossil Fuel</div>
+                <h3 class="app-name">Oil</h3>
+                <div class="app-type">Fuel oil peaker plants</div>
+              </div>
+              <div class="app-icon-wrap" style="background:#FFF7ED; color:#92400E;" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <path d="M24 10C24 10 14 22 14 31C14 36.5 18.5 41 24 41C29.5 41 34 36.5 34 31C34 22 24 10 24 10Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+                  <path d="M19 33C19 36 21.2 38 24 38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <p>
+              Oil-fired steam plants burn fuel oil in a boiler, mechanically identical to a coal
+              plant but with liquid fuel.<sup><a href="#ref-8" class="cite">[8]</a></sup> Oil is
+              overwhelmingly used for transportation worldwide, and using it to generate electricity
+              is rare and expensive. Oil-fired plants that do exist typically serve as
+              <em>peaking plants</em>, started only during extreme demand periods. They're expensive
+              to operate and rarely run at baseload.
+            </p>
+            <a class="learn-link" href="https://www.eia.gov/energyexplained/oil-and-petroleum-products/" target="_blank" rel="noopener noreferrer">EIA: Oil and petroleum products &rarr;</a>
+          </div>
+        </article>
+
+        <!-- Natural Gas -->
+        <article class="app-card">
+          <div class="app-card-accent" style="background:#EA580C;"></div>
+          <div class="app-card-body">
+            <div class="app-card-head">
+              <div>
+                <div class="app-tag" style="color:#EA580C;">Combined Cycle</div>
+                <h3 class="app-name">Natural Gas</h3>
+                <div class="app-type">Brayton + Rankine combined cycle (CCGT)</div>
+              </div>
+              <div class="app-icon-wrap" style="background:#FFF7ED; color:#EA580C;" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <path d="M16 36C16 36 10 31 10 23C10 15 18 9 18 9C18 9 15 18 22 22C22 22 19 13 26 9C26 9 33 17 29 26C29 26 33 21 33 17C33 17 39 24 37 32C35 38 30 41 24 41C18 41 16 36 16 36Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <p>
+              Natural gas combined cycle plants (CCGT) stack two thermodynamic cycles in series,
+              achieving thermal efficiencies of 60&ndash;64%,<sup><a href="#ref-9" class="cite">[9]</a></sup>
+              roughly double a simple steam plant:
+            </p>
+            <ol class="inline-list">
+              <li>
+                <strong>Brayton cycle (gas turbine):</strong> Compressed air and natural gas
+                combust at ~1,300&deg;C, driving a gas turbine directly.
+              </li>
+              <li>
+                <strong>Rankine cycle (steam turbine):</strong> The gas turbine exhaust (still
+                ~600&deg;C) passes through a heat recovery steam generator (HRSG), producing
+                steam for a second turbine stage. The Rankine portion recovers energy that
+                would otherwise escape as waste heat.
+              </li>
+            </ol>
+            <p>
+              Natural gas electricity generation has grown sharply in recent decades. The primary
+              driver was the U.S. shale gas revolution: horizontal drilling and hydraulic
+              fracturing unlocked vast domestic reserves, driving down prices. CCGT plants also
+              start up and ramp quickly, making them a natural complement to intermittent wind and
+              solar generation.
+            </p>
+            <a class="learn-link" href="https://www.eia.gov/energyexplained/natural-gas/" target="_blank" rel="noopener noreferrer">EIA: Natural gas explained &rarr;</a>
+          </div>
+        </article>
+
+        <!-- Concentrated Solar Power -->
+        <article class="app-card">
+          <div class="app-card-accent" style="background:#D97706;"></div>
+          <div class="app-card-body">
+            <div class="app-card-head">
+              <div>
+                <div class="app-tag" style="color:#D97706;">Renewable</div>
+                <h3 class="app-name">Concentrated Solar Power</h3>
+                <div class="app-type">CSP — not photovoltaic</div>
+              </div>
+              <div class="app-icon-wrap" style="background:#FFFBEB; color:#D97706;" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <circle cx="24" cy="24" r="7.5" stroke="currentColor" stroke-width="2.5"/>
+                  <line x1="24" y1="5"  x2="24" y2="13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="24" y1="35" x2="24" y2="43" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="5"  y1="24" x2="13" y2="24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="35" y1="24" x2="43" y2="24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="10.2" y1="10.2" x2="15.9" y2="15.9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="32.1" y1="32.1" x2="37.8" y2="37.8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="37.8" y1="10.2" x2="32.1" y2="15.9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="15.9" y1="32.1" x2="10.2" y2="37.8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <p>
+              CSP plants use mirrors to focus sunlight onto a receiver, generating intense heat
+              to drive a Rankine cycle.<sup><a href="#ref-10" class="cite">[10]</a></sup> This
+              is fundamentally different from photovoltaic solar, which converts light directly
+              to electricity with no thermodynamic cycle. Three main CSP configurations:
+            </p>
+            <ul class="bullet-list">
+              <li><strong>Power Tower</strong> — heliostats focus onto a central receiver. Highest temperatures (above 500&deg;C). Integrates with molten salt thermal storage for after-sunset generation.</li>
+              <li><strong>Parabolic Trough</strong> — the most widespread type. Curved mirrors focus onto a tube of heat-transfer fluid.</li>
+              <li><strong>Parabolic Dish</strong> — individual dish mirrors focusing at a point. Often paired with a Stirling engine rather than a Rankine turbine.</li>
+            </ul>
+            <a class="learn-link" href="https://www.energy.gov/cmei/systems/concentrating-solar-thermal-power-basics" target="_blank" rel="noopener noreferrer">DOE: Concentrating solar thermal power basics &rarr;</a>
+          </div>
+        </article>
+
+        <!-- Geothermal -->
+        <article class="app-card">
+          <div class="app-card-accent" style="background:#DC2626;"></div>
+          <div class="app-card-body">
+            <div class="app-card-head">
+              <div>
+                <div class="app-tag" style="color:#DC2626;">Renewable</div>
+                <h3 class="app-name">Geothermal</h3>
+                <div class="app-type">Earth's internal heat</div>
+              </div>
+              <div class="app-icon-wrap" style="background:#FEF2F2; color:#DC2626;" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <path d="M6 31H42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M15 29C15 29 12 25 15 21C15 21 18 17 15 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M24 29C24 29 21 25 24 21C24 21 27 17 24 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M33 29C33 29 30 25 33 21C33 21 36 17 33 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <p>
+              Geothermal plants tap heat from within the
+              Earth.<sup><a href="#ref-11" class="cite">[11]</a></sup>
+              In high-enthalpy fields (Iceland, The Geysers in California), steam rises naturally
+              from the ground and feeds directly into a turbine using a dry steam cycle. In
+              lower-enthalpy fields, hot water is brought to the surface and "flashed" to steam
+              at lower pressure (a flash steam cycle) or an ORC uses geothermal heat to boil a
+              working fluid at temperatures water can't efficiently handle. Geothermal's defining
+              advantage over solar and wind: it provides <strong>baseload power 24 hours a
+              day</strong>, independent of weather.
+            </p>
+            <a class="learn-link" href="https://www.energy.gov/eere/geothermal/geothermal-basics" target="_blank" rel="noopener noreferrer">DOE: Geothermal basics &rarr;</a>
+          </div>
+        </article>
+
+      </div><!-- /.app-grid -->
+    </div>
+  </div>
+
+  <!-- ── Organic Rankine Cycles and Waste Heat Recovery ── -->
+  <div class="sec-banner" style="background:#D97706;">
+    <h2 class="inner">Organic Rankine Cycles and Waste Heat Recovery</h2>
+  </div>
+  <div class="content-row">
+    <div class="inner content-cols">
+      <div>
+        <p>
+          When the heat source is at lower temperatures — roughly 80 to 350&deg;C — water becomes
+          impractical as a working fluid. Boiling it at low pressures requires operating under
+          vacuum, which creates significant engineering challenges. Organic Rankine Cycle (ORC)
+          systems solve this by using refrigerants or organic compounds that boil at lower
+          temperatures. The cycle is thermodynamically identical to a steam Rankine cycle: pump,
+          boiler, turbine, condenser — just different working fluid and state-point values.
+        </p>
+        <h3 class="sub-head">Common ORC working fluids</h3>
+        <ul class="fluid-list">
+          <li><strong>Pentane</strong> — common in geothermal and waste heat recovery</li>
+          <li><strong>R245fa</strong> — widely used refrigerant, effective from 80&ndash;150&deg;C</li>
+          <li><strong>Siloxanes</strong> — higher-temperature ORC systems up to ~300&deg;C</li>
+          <li><strong>R134a</strong> — low-temperature applications, often paired with heat pumps</li>
+        </ul>
+        <div class="orc-applications">
+          <p class="orc-head">ORC is used in:</p>
+          <div class="orc-tag">Geothermal wells (low-enthalpy fields)</div>
+          <div class="orc-tag">Industrial waste heat recovery</div>
+          <div class="orc-tag">Biomass combustion at moderate temperatures</div>
+          <div class="orc-tag">Concentrated solar (lower-temperature systems)</div>
+          <div class="orc-tag">Ship engine exhaust heat recovery</div>
+        </div>
+      </div>
+      <div>
+        <div class="waste-heat-card">
+          <div class="app-tag" style="color:#16A34A; margin-bottom:0.5rem;">Industrial Application</div>
+          <h3>Waste Heat Recovery</h3>
+          <p>
+            Steel mills, cement plants, glass furnaces, and refineries discharge enormous quantities
+            of heat that would otherwise escape to the atmosphere. ORC systems can capture this heat —
+            even at temperatures as low as 150&deg;C — and convert it to
+            electricity.<sup><a href="#ref-12" class="cite">[12]</a></sup>
+          </p>
+          <p>
+            The fuel is effectively free, since the industrial process generates the heat regardless.
+            Waste heat recovery simultaneously reduces operating costs and carbon emissions, making
+            it one of the highest-return energy investments in heavy industry.
+          </p>
+          <a class="learn-link" href="https://www.exergy-orc.com/application/heat-recovery-from-industrial-process/" target="_blank" rel="noopener noreferrer">
+            Exergy ORC: Heat recovery from industrial processes &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── References ── -->
+  <div class="sec-banner" style="background:#4B5563;">
+    <h2 class="inner">References</h2>
+  </div>
+  <div class="content-row">
+    <div class="inner">
+      <ol class="refs-list" id="references">
+        <li id="ref-1">Borgnakke, C., &amp; Sonntag, R. E. <em>Fundamentals of Thermodynamics</em> (10th ed.). Wiley.</li>
+        <li id="ref-2">U.S. Nuclear Regulatory Commission. (2023). <em>How Nuclear Power Plants Work.</em> <a href="https://www.nrc.gov/reactors/power/how-reactors-work.html" target="_blank" rel="noopener noreferrer">nrc.gov</a></li>
+        <li id="ref-3">Lemmon, E. W., Bell, I. H., Huber, M. L., &amp; McLinden, M. O. (2023). <em>NIST Chemistry WebBook, SRD 69: Thermophysical Properties of Fluid Systems.</em> <a href="https://webbook.nist.gov/chemistry/fluid/" target="_blank" rel="noopener noreferrer">webbook.nist.gov</a></li>
+        <li id="ref-4">U.S. Nuclear Regulatory Commission. (2024). <em>Reactor License Information.</em> <a href="https://www.nrc.gov/reading-rm/basic-ref/students/reactors.html" target="_blank" rel="noopener noreferrer">nrc.gov</a></li>
+        <li id="ref-5">Commonwealth Fusion Systems. (2024). <em>SPARC and ARC: The Path to Commercial Fusion.</em> <a href="https://www.cfs.energy" target="_blank" rel="noopener noreferrer">cfs.energy</a></li>
+        <li id="ref-6">National Ignition Facility. (2022). <em>NIF Achieves Fusion Ignition.</em> <a href="https://www.llnl.gov/news/national-ignition-facility-achieves-fusion-ignition" target="_blank" rel="noopener noreferrer">llnl.gov</a></li>
+        <li id="ref-7">U.S. Energy Information Administration. (2024). <em>Coal Explained: Use of Coal.</em> <a href="https://www.eia.gov/energyexplained/coal/" target="_blank" rel="noopener noreferrer">eia.gov</a></li>
+        <li id="ref-8">U.S. Energy Information Administration. (2024). <em>Oil and Petroleum Products Explained.</em> <a href="https://www.eia.gov/energyexplained/oil-and-petroleum-products/" target="_blank" rel="noopener noreferrer">eia.gov</a></li>
+        <li id="ref-9">U.S. Energy Information Administration. (2024). <em>Natural Gas Explained.</em> <a href="https://www.eia.gov/energyexplained/natural-gas/" target="_blank" rel="noopener noreferrer">eia.gov</a></li>
+        <li id="ref-10">U.S. Department of Energy. (2024). <em>Concentrating Solar Thermal Power Basics.</em> <a href="https://www.energy.gov/cmei/systems/concentrating-solar-thermal-power-basics" target="_blank" rel="noopener noreferrer">energy.gov</a></li>
+        <li id="ref-11">U.S. Department of Energy, EERE. (2024). <em>Geothermal Basics.</em> <a href="https://www.energy.gov/eere/geothermal/geothermal-basics" target="_blank" rel="noopener noreferrer">energy.gov</a></li>
+        <li id="ref-12">Exergy ORC. (2024). <em>Heat Recovery from Industrial Processes.</em> <a href="https://www.exergy-orc.com/application/heat-recovery-from-industrial-process/" target="_blank" rel="noopener noreferrer">exergy-orc.com</a></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ── Next Step ── -->
+  <div class="sec-banner" style="background:#0F2147;">
+    <h2 class="inner">What's Coming Next</h2>
+  </div>
+  <div class="content-row content-row--bg">
+    <div class="inner next-step">
+      <p>
+        The Basic Rankine Cycle section will build the thermodynamic model from the ground up
+        with interactive T-s diagrams and real Oswego climate data. In the meantime, review the
+        Concepts section if anything above wasn't familiar.
+      </p>
+      <div class="next-links">
+        <a href={`${base}concepts`} class="btn-primary">&larr; Back to Concepts</a>
+      </div>
+    </div>
+  </div>
+
+</Base>
+
+<style>
+  /* ── Page Hero ── */
+  .page-hero {
+    padding: 3.5rem 0;
+    color: #fff;
+  }
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 0.875rem;
+  }
+  .page-hero h1 {
+    font-size: 3.25rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    line-height: 1.05;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.88);
+    max-width: 640px;
+    line-height: 1.75;
+  }
+
+  /* ── Two-column content ── */
+  .content-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+  .content-cols p { color: var(--muted); margin-bottom: 1rem; line-height: 1.75; }
+  .content-cols p:last-child { margin-bottom: 0; }
+
+  /* ── Section lead ── */
+  .section-lead {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    max-width: 780px;
+    line-height: 1.75;
+  }
+
+  /* ── Property grid ── */
+  .prop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .prop-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.375rem;
+  }
+  .prop-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.375rem;
+  }
+  .prop-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.625rem;
+  }
+  .prop-desc {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── ORC ── */
+  .fluid-list {
+    padding-left: 1.25rem;
+    margin: 0.875rem 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .fluid-list li { line-height: 1.6; }
+  .orc-applications {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 5px solid var(--amber);
+    padding: 1.25rem;
+  }
+  .orc-head {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.875rem;
+  }
+  .orc-tag {
+    font-size: 0.85rem;
+    color: var(--text);
+    padding: 0.4rem 0.625rem;
+    border-left: 3px solid var(--amber);
+    background: var(--bg);
+    margin-bottom: 0.4rem;
+  }
+  .orc-tag:last-child { margin-bottom: 0; }
+
+  .sub-head {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 1.25rem 0 0.5rem;
+  }
+  .waste-heat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 5px solid #16A34A;
+    padding: 1.375rem;
+  }
+  .waste-heat-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.875rem;
+  }
+  .waste-heat-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── Applications grid ── */
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.125rem;
+  }
+  .app-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+  }
+  .app-card--featured { grid-column: 1 / -1; }
+  .app-card-accent { width: 7px; flex-shrink: 0; }
+  .app-card-body { padding: 1.5rem; flex: 1; }
+
+  .app-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .app-icon-wrap {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+  }
+  .app-icon-wrap svg { width: 100%; height: 100%; }
+  .app-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .app-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.15rem;
+  }
+  .app-type { font-size: 0.8rem; color: var(--muted); }
+  .app-card-body > p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Reactor / fusion comparison columns */
+  .reactor-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .reactor-box h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .reactor-box p {
+    font-size: 0.875rem !important;
+    margin-bottom: 0.6rem !important;
+    color: var(--muted) !important;
+    line-height: 1.65 !important;
+  }
+  .local-note {
+    font-size: 0.82rem !important;
+    color: var(--muted) !important;
+    padding: 0.5rem 0.75rem;
+    background: #EFF6FF;
+    border-left: 3px solid #1865F2;
+    margin-top: 0.25rem !important;
+  }
+
+  /* Inline ordered/unordered lists inside cards */
+  .inline-list, .bullet-list {
+    padding-left: 1.25rem;
+    margin: 0.625rem 0 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+  .inline-list li, .bullet-list li { line-height: 1.6; }
+
+  .learn-link {
+    display: inline-block;
+    margin-top: 0.625rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .learn-link:hover { text-decoration: underline; }
+
+  /* ── References ── */
+  .refs-list {
+    list-style: none;
+    counter-reset: ref-num;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    margin-top: 1rem;
+  }
+  .refs-list li {
+    counter-increment: ref-num;
+    display: flex;
+    gap: 0.875rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .refs-list li::before {
+    content: '[' counter(ref-num) ']';
+    flex-shrink: 0;
+    min-width: 2.25rem;
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding-top: 3px;
+  }
+  .refs-list a { color: var(--blue); word-break: break-all; }
+  .refs-list em { font-style: italic; }
+
+  /* ── Next step ── */
+  .next-step p { font-size: 1rem; color: var(--muted); margin-bottom: 1.5rem; max-width: 680px; line-height: 1.75; }
+  .next-links { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+  /* ── Responsive ── */
+  @media (max-width: 1000px) {
+    .app-grid     { grid-template-columns: 1fr; }
+    .reactor-cols { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+  @media (max-width: 860px) {
+    .content-cols { grid-template-columns: 1fr; gap: 2rem; }
+    .page-hero h1 { font-size: 2.5rem; }
+  }
+  @media (max-width: 600px) {
+    .page-hero h1 { font-size: 2rem; }
+    .prop-grid    { grid-template-columns: 1fr; }
+  }
+</style>
